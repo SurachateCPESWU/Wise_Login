@@ -7,13 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.oishi.wtf.MainActivity">
+    tools:context="com.example.oishi.wtf.MainActivity"
+    android:background="#9e3d20ff">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Wait"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -21,8 +22,41 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
+        android:text="Login"
+        android:id="@+id/bt_login"
+        android:layout_marginTop="45dp"
         android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/bt_out"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/bt_out"
+        android:layout_below="@+id/bt_login"
+        android:layout_centerHorizontal="true" />
+
+    Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting"
+        android:id="@+id/bt_set"
+        android:layout_below="@+id/bt_out"
+        android:layout_alignStart="@+id/bt_out" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:src="@android:drawable/ic_menu_manage"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:focusable="false"
+        android:cropToPadding="false"
+        android:contextClickable="false"
+        android:baselineAlignBottom="false"
+        android:adjustViewBounds="false"
+        android:background="@null" />
+
 </RelativeLayout>

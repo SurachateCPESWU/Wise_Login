@@ -1,0 +1,38 @@
+package com.example.oishi.wtf;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class Setting extends AppCompatActivity {
+    SharedPreferences settings;
+    SharedPreferences.Editor editor ;
+    Button save;
+    EditText user,pass;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_setting);
+
+        settings = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+        user = (EditText)findViewById(R.id.user);
+        pass = (EditText)findViewById(R.id.pass);
+        save = (Button)findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor = settings.edit();
+                editor.putString("VAR_USER",user.getText().toString());
+                editor.putString("VAR_PASS",pass.getText().toString());
+                editor.commit();
+                finish();
+            }
+        });
+        user.setText(settings.getString("VAR_USER", ""));
+        pass.setText(settings.getString("VAR_PASS",""));
+    }
+}

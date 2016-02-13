@@ -1,9 +1,13 @@
 package com.example.oishi.wtf;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,25 +19,40 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     TextView show;
     Button bt_get,bt_out;
+    ImageButton img_bt;
+    SharedPreferences settings;
+    SharedPreferences.Editor editor ;
+    String VAR_USER,VAR_PASS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         show = (TextView)findViewById(R.id.textView);
-        bt_get = (Button)findViewById(R.id.button);
+        bt_get = (Button)findViewById(R.id.bt_login);
         bt_out = (Button)findViewById(R.id.bt_out);
-        final RequestParams params = new RequestParams();
-        params.put("user", "");
-        params.put("password", "");
-        params.put("cmd","Log+In");
+
+
         bt_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                settings = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+                VAR_USER = settings.getString("VAR_USER","");
+                VAR_PASS = settings.getString("VAR_PASS","");
+                final RequestParams params = new RequestParams();
+                params.put("user", VAR_USER);
+                params.put("password", VAR_PASS);
+                params.put("cmd", "Log+In");
+
                 AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
                 client.post("https://captiveportal-login.swu.ac.th/cgi-bin/login?cmd=login", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        show.setText("PASS");
+                        if(statusCode == 200) {
+                            show.setText("Login pass");
+                            System.exit(0);
+                        }
                     }
 
                     @Override
@@ -61,5 +80,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+
+        img_bt = (ImageButton)findViewById(R.id.imageButton);
+        img_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent   i = new Intent(getApplicationContext(),Setting.class);
+                startActivity(i);
+            }
+        });
     }
+
 }
